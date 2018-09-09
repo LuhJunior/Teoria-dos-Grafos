@@ -37,4 +37,26 @@ function graph()
     for k = 1: m
         plot2d([x(b(k, 1)), x(b(k, 2))], [y(b(k, 1)), y(b(k, 2))], 1)
     end
+    global('pre', 'pos', 'npre', 'npos', 'ordemdfs', 'ordem')
+    pre = zeros(1, n)
+    pos = zeros(1, n)
+    ordem = zeros(1, n)
+    npre = 1
+    npos = 1
+    dfs(a, 1)
+    disp(ordem, 'ordem')
+endfunction
+
+function dfs(a, v)
+    global('pre', 'pos', 'npre', 'npos', 'ordem')
+    pre(v) = npre;
+    ordem(npre) = v
+    npre = npre+1
+    for i = 1: n
+        if a(v, i) == 1 && pre(i) == 0
+            dfs(a, i)
+        end
+    end
+    pos(v) = npos;
+    npos = npos+1
 endfunction
